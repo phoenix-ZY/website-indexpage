@@ -63,6 +63,7 @@
                 </article>
                 
                 <!-- row 1 -->
+                <!--
                 <figure role="guide-content"> 
 
                   <h1 role="guide-content">
@@ -130,8 +131,10 @@
 
         
                 </figure>
+                -->
         
                 <!-- row 2 -->
+                <!--
                 <figure role="guide-content"> 
                   
                   <h1>
@@ -199,9 +202,14 @@
 
                
                 </figure>
+                -->
 
                 <figure role="guide-content">
                   {% for link in links %}
+                  {% if forloop.counter|divisibleby:10 %}
+                    </figure>
+                    <figure role="guide-content">
+                  {% endif %}
                   <h1>
                   <a href= {{link.url}}  target="_blank" title={{link.name}}>
                       <img src="" class="guide-img" title={{link.name}} alt={{link.name}}>                         
@@ -213,7 +221,7 @@
 
                   <!-- add -->
                   <h1> 
-                    <a href="#" id="add-website-button"> 
+                    <a id="add-website-button"> 
                       <img src="{% static "images/guide/add.png" %}" alt="add" class="guide-img" 
                       style="width: 70px; height: 70px; margin-left: 10px; margin-right: 10px; "/>
                     </a>
@@ -221,11 +229,11 @@
                   </h1> 
 
                   <!-- 模态框 -->
-                  <div id="add-website-modal" class="modal" role="modal">
-                    <div class="modal-dialog modal-sm">
+                  <div id="add-website-modal" class="modal" role="modal" aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
                       <div class="modal-content">
                         <div class="modal-header">
-                          <span class="close" id="close-modal">&times;</span>
+                          <span class="close" id="close-modal" aria-hidden="true">&times;</span>
                           <h4 class="modal-title">添加网站</h4>
                         </div> 
                         <div class="modal-body">                     
@@ -245,6 +253,7 @@
                       </div>
                     </div>
                   </div>
+
                 </figure>
                 
                 <div class="clearfix"></div>
@@ -310,21 +319,21 @@
 
         <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 
-        <script src="{% static 'js/guide/jquery.min.js' %}" type="text/javascript"></script>
+        <script src="{% static "js/guide/jquery.min.js" %}" type="text/javascript"></script>
 
         <!-- custom -->
 
-        <script src="{% static 'js/guide/nav.js' %}" type="text/javascript"></script>
-        <script src="{% static 'js/guide/custom.js' %}" type="text/javascript"></script>
+        <script src="{% static "js/guide/nav.js" %}" type="text/javascript"></script>
+        <script src="{% static "js/guide/custom.js" %}" type="text/javascript"></script>
 
         <!-- Include all compiled plugins (below), or include individual files as needed -->
 
-        <script src="{% static 'js/guide/bootstrap.min.js' %}" type="text/javascript"></script>
+        <script src="{% static "js/guide/bootstrap.min.js" %}" type="text/javascript"></script>
 
         <!-- jquery.countdown -->
 
-        <script src="{% static 'js/guide/html5shiv.js' %}" type="text/javascript"></script>
-        <script src="{% static 'js/guide/index.js' %}" type="text/javascript"></script>
+        <script src="{% static "js/guide/html5shiv.js" %}" type="text/javascript"></script>
+        <script src="{% static "js/guide/index.js" %}" type="text/javascript"></script>
 
         <script>
             function enter_chatroom(){

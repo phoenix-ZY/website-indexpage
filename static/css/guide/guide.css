@@ -53,7 +53,7 @@ main[role="main-inner-wrapper"] figure[role="guide-content"] h1 > a .guide-img{
 
 /* 隐藏模态框 */
 .modal {
-    display: flex !important;
+    
     justify-content: center;
     align-items: center;
     position: fixed;
@@ -64,7 +64,7 @@ main[role="main-inner-wrapper"] figure[role="guide-content"] h1 > a .guide-img{
     background-color: rgba(0,0,0,0.7);
     z-index: 1;
 	text-align: center;
-    padding: 0 !important;
+    
 }
 
 .modal-content {
@@ -73,9 +73,6 @@ main[role="main-inner-wrapper"] figure[role="guide-content"] h1 > a .guide-img{
     margin: 10% auto;
     padding: 20px;
     width: 60%;
-}
-.modal-content h3{
-	text-align: center;
 }
 
 .modal:before {
