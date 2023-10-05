@@ -204,7 +204,7 @@
                   {% for link in links %}
                   <h1>
                   <a href= {{link.url}}  target="_blank" title={{link.name}}>
-                      <img src="" class="guide-img" title={{link.name}} alt={{link.name}}>                         
+                      <img src={{link.image_url}} class="guide-img" title={{link.name}} alt={{link.name}}>                         
                   </a>
                   <p>{{ link.name }}</p>
                   </h1>
@@ -229,7 +229,7 @@
                           <h4 class="modal-title">添加网站</h4>
                         </div> 
                         <div class="modal-body">                     
-                          <form method="post" action="{% url 'index:index' %}">
+                          <form method="post" action="{% url 'index:index' %}" >
                               {% csrf_token %}
                               <label for="addwebsite-name">Name</label>
                               <input type="text" class="form-control" id="addwebsite-name" name="add_name" placeholder="Enter Name of the Website" required>
