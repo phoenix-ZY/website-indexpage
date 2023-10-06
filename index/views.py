@@ -21,7 +21,7 @@ def index(request: HttpRequest):
             link_name = link_form.cleaned_data["add_name"]
             if not link_url.startswith("https://"):
                 link_url = "https://" + link_url
-            my_link = LINK.objects.filter(name=link_url)
+            my_link = LINK.objects.filter(url=link_url)
             if my_link:
                 my_link[0].user.add(request.user)
             else:
