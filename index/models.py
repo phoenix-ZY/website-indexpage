@@ -23,7 +23,7 @@ class LINK(models.Model):
 
     @property
     def initial(self):
-        return self.name[0].upper()
+        return self.url[0].upper()
 
     @property
     def image_url(self):
@@ -41,8 +41,15 @@ class LINK(models.Model):
             except:
                 return "/media/static_default/{}.png".format(self.initial)
             soup = BeautifulSoup(response.text, "html.parser")
-            favicon = soup.find("link", href=True, rel="shortcut icon")["href"]
-            if favicon.startswith("/"):
+            favicon = soup.find_all("link", href=True, rel=["shortcut icon","apple-touch-icon"] )
+            favicon = favicon[0] if favicon else None
+            if favicon:
+                favicon = favicon["href"]
+            else:
+                return "/media/static_default/{}.png".format(self.initial)
+            if favicon.startswith("//"):
+                favicon = "https:" + favicon
+            elif favicon.startswith("/"):
                 favicon = self.url + favicon
             if favicon:
                 favicon_resp = requests.get(favicon, headers=headers)
@@ -51,7 +58,6 @@ class LINK(models.Model):
                 fullpath = path + domain + ".png"
                 name = domain + ".png"
                 self.image.save(name, ContentFile(favicon_resp.content))
-                print(self.image)
             else:
                 return "/media/static_default/{}.png".format(self.initial)
         return self.image.url
