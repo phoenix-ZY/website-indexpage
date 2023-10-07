@@ -23,7 +23,7 @@ class LINK(models.Model):
 
     @property
     def initial(self):
-        return self.url[0].upper()
+        return self.name[0].upper()
 
     @property
     def image_url(self):

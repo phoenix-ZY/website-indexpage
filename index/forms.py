@@ -5,3 +5,6 @@ from .models import LINK
 class linkform(forms.Form):
     add_name = forms.CharField(label="Name")
     add_link = forms.CharField(label="Link")
+
+class Deletelinkform(forms.Form):
+    delete_name = forms.CharField(label="Name")
