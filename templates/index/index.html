@@ -228,12 +228,23 @@
                     <p>添加</p>
                   </h1> 
 
-                  <!-- 模态框 -->
+
+                  <!-- delete -->
+                  <h1> 
+                    <a id="delete-website-button"> 
+                      <img src="{% static "images/guide/delete.png" %}" alt="delete" class="guide-img" 
+                      style="width: 70px; height: 70px; margin-left: 10px; margin-right: 10px; "/>
+                    </a>
+                    <p>删除</p>
+                  </h1> 
+
+
+                  <!-- 添加模态框 -->
                   <div id="add-website-modal" class="modal" role="modal" aria-hidden="true">
                     <div class="modal-dialog modal-lg">
                       <div class="modal-content">
                         <div class="modal-header">
-                          <span class="close" id="close-modal" aria-hidden="true">&times;</span>
+                          <span class="close" id="close-modal1" aria-hidden="true">&times;</span>
                           <h4 class="modal-title">添加网站</h4>
                         </div> 
                         <div class="modal-body">                     
@@ -247,6 +258,29 @@
                               placeholder="Enter Link" required>                 
                               <div class="modal-footer">
                                 <button type="submit" style="padding: 5px 22px; ">Add</button>                    
+                              </div>
+                          </form>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- 删除模态框 -->
+                  <div id="delete-website-modal" class="modal" role="modal" aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <span class="close" id="close-modal2" aria-hidden="true">&times;</span>
+                          <h4 class="modal-title">删除网站</h4>
+                        </div> 
+                        <div class="modal-body">                     
+                          <form method="post" action="{% url 'index:index' %}" >
+                              {% csrf_token %}
+                              <label for="deletewebsite-name">Name</label>
+                              <input type="text" class="form-control" id="deletewebsite-name" name="delete_name" placeholder="Enter Name of the Website" required>
+                               
+                              <div class="modal-footer">
+                                <button type="submit" style="padding: 5px 22px; ">Delete</button>                    
                               </div>
                           </form>
                         </div>
