@@ -9,6 +9,7 @@ from users.models import User
 from django.db import IntegrityError
 
 
+
 # Create your views here.
 @login_required
 def index(request: HttpRequest):
@@ -37,10 +38,14 @@ def index(request: HttpRequest):
             link_name = deletelinkform.cleaned_data["delete_name"]
             my_link = LINK.objects.filter(name=link_name)
             if my_link:
-                my_link[0].user.remove(request.user)
+                for i in range(len(my_link)):
+                    my_link[i].user.remove(request.user)
+                    if not my_link[i].user.exists():
+                        if my_link[i].image:
+                            my_link[i].image.delete(save=False)
+                        my_link[i].delete()
             else:
                 wrong_message = "The name of this link doen't exist"
-
 
     return render(
         request,

@@ -4,8 +4,11 @@ import requests
 from bs4 import BeautifulSoup
 import os
 from django.core.files.base import ContentFile
+import pypinyin
 
-
+def get_first_pinyin_letter(chinese):
+    pinyin = pypinyin.pinyin(chinese[0], style=pypinyin.STYLE_NORMAL)[0][0]
+    return pinyin[0].upper()
 # Create your models here.
 class LINK(models.Model):
     url = models.URLField(
@@ -23,6 +26,8 @@ class LINK(models.Model):
 
     @property
     def initial(self):
+        if pypinyin.pinyin(self.name[0]):
+            return get_first_pinyin_letter(self.name[0]).upper()
         return self.name[0].upper()
 
     @property
@@ -37,12 +42,14 @@ class LINK(models.Model):
                 )
             }  # 伪装请求头
             try:
-                response = requests.get(self.url, headers=headers)
+                response = requests.get(self.url, headers=headers, timeout=0.5)
             except:
                 return "/media/static_default/{}.png".format(self.initial)
             soup = BeautifulSoup(response.text, "html.parser")
-            favicon = soup.find_all("link", href=True, rel=["shortcut icon","apple-touch-icon"] )
-            favicon = favicon[0] if favicon else None
+            favicon = soup.find(
+                "link", href=True,  rel=lambda x: x and "icon" in x
+            )
+            # favicon = favicon[0] if favicon else None
             if favicon:
                 favicon = favicon["href"]
             else:
@@ -53,7 +60,7 @@ class LINK(models.Model):
                 favicon = self.url + favicon
             if favicon:
                 favicon_resp = requests.get(favicon, headers=headers)
-                domain = self.url.split("//")[-1].split(".")[0]
+                domain = self.url.split("//")[-1].split(".")[1]
                 path = "media/link_image/"
                 fullpath = path + domain + ".png"
                 name = domain + ".png"
